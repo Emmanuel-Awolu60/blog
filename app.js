@@ -1,17 +1,20 @@
 require('dotenv').config();
 
 const express = require('express');
-const expressLayout = require('express-ejs-layouts')
+const expressLayout = require('express-ejs-layouts');
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
-app.use(ex)
+app.use(express.static('public'));
 
-app.get('', (req, res) => {
-    res.send("Hello World");
+// Template engnine
+app.use(expressLayout);
+app.set('layout', './layout/maine');
+app.set('view engine', 'ejs');
+
+app.use('/', require('./server/routes/main'));
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
 });
-
-app.listen(PORT, () =>{
-    console.log(`App listening on port ${PORT}`)
-})
